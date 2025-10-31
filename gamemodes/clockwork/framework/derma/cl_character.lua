@@ -1151,6 +1151,7 @@ function PANEL:Init()
 			["gore"] = "Gore Forest",
 			["gore_tree"] = "Gore Forest",
 			["gore_hallway"] = "Gore Forest",
+			["hall"] = "Gore Forest",
 			["hell"] = "Hell",
 			["manor"] = "Hell",
 			["scrapper"] = "Scrap Factory",
@@ -1164,6 +1165,8 @@ function PANEL:Init()
 		elseif game.GetMap() == "rp_district21" then
 			zones_to_names["tower"] = "Hill of Light";
 			zones_to_names["hillbunker"] = "Hill of Light Bunker";
+		elseif game.GetMap() == "bg_district34" then
+			zones_to_names["tower"] = "Villa of Light"
 		end
 		
 		local zoneName = zones_to_names[self.customData.location] or "Unknown";
@@ -3820,9 +3823,9 @@ function PANEL:Init()
 	
 	if self.curFaction == "Goreic Warrior" then
 		self.subfactionForm:SetName("Clans");
-	elseif self.curFaction == "Gatekeeper" or self.curFaction == "Hillkeeper" then
+	elseif self.curFaction == "Gatekeeper" or self.curFaction == "Hillkeeper" or self.curFaction == "Militant Orders of the Villa" then
 		self.subfactionForm:SetName("Troops");
-	elseif self.curFaction == "Holy Hierarchy" then
+	elseif self.curFaction == "Holy Hierarchy" or self.curFaction == "Aristocracy Of Light" then
 		self.subfactionForm:SetName("Orders");
 	elseif self.curFaction == "Children of Satan" then
 		self.subfactionForm:SetName("Bloodlines");

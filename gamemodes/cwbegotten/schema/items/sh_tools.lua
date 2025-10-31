@@ -56,6 +56,20 @@ if (SERVER) then
 			-- Water Tower
 			{pos = Vector(-2745.69, -1459.94, -537.44), ang = Angle(54.55, -88.07, -0.15), boundsA = Vector(-2679, -1879, -225), boundsB = Vector(-3486, -1373, -689)},
 		}
+	elseif map == "bg_district34" then
+		Schema.siegeLadderPositions = {
+			-- Villa left wall
+			{pos = Vector(7125, -11471, 525), ang = Angle(52, 180, 0), boundsA = Vector(6815, -11707, 677), boundsB = Vector(7450, -11227, 500)},
+			{pos = Vector(6303, -7255, 593), ang = Angle(60, 270, 0), boundsA = Vector(6659, -7588, 600), boundsB = Vector(5781, -6652, 732)},
+			-- Villa Broken Wall
+			{pos = Vector(-1472, -11512, 512), ang = Angle(65, 0, 0), boundsA = Vector(-1095, -11658, 415), boundsB = Vector(-1801, -11048, 682)},
+			-- Gorewatch
+			{pos = Vector(8949, 7319, 845), ang = Angle(65, 90, 0), boundsA = Vector(8802, 7414, 1011), boundsB = Vector(9067, 7214, 801)},
+			{pos = Vector(8204, 8367, 880), ang = Angle(65, 0, 0), boundsA = Vector(8429, 8122, 931), boundsB = Vector(8222, 8499, 1094)},
+			-- Scraptown
+			{pos = Vector(-8975, 12513, 180), ang = Angle(65, 90, 0), boundsA = Vector(-9143, 12607, 200), boundsB = Vector(-8809, 12395, 310)},
+			{pos = Vector(-8444, 12513, 180), ang = Angle(65, 90, 0), boundsA = Vector(-8590, 12655, 200), boundsB = Vector(-8231, 12412, 310)},
+		}
 	end
 end
 

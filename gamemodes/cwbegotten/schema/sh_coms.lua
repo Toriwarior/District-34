@@ -20,6 +20,9 @@ elseif map == "rp_scraptown" then
 elseif map == "rp_district21" then
 	archPos = Vector(5292, -14361, -406); -- church
 	pillarPos = Vector(11376, -2410, -192);
+elseif map == "bg_district34" then
+	archPos = Vector(-11264, 3094, 264); -- cave
+	pillarPos = Vector(-2467, 9699, 294);
 end
 
 if (map == "rp_begotten3") then
@@ -88,6 +91,27 @@ elseif (map == "rp_district21") then
 		["ship"] = Vector(-10612, 4328, -1702),
 		["voltbunker"] = Vector(-12934, -3154, -512),
 		["gorewatch"] = Vector(-8927, -8286, -68),
+	}
+elseif (map == "bg_district34") then
+	Schema.MapLocations = {
+		["city"] = Vector(-3828, -1435, 902),
+		["mines"] = Vector(980, 4144, -930),
+		["duel_city"] = Vector(-3313, -4895, 4460),
+		["duel_hell"] = Vector(-6019, -8919, -9275),
+		["duel_gore"] = Vector(-12401, -8051, 10475),
+		["duel_silenthill"] = Vector(9551, 530, -7045),
+		["duel_rooftop"] = Vector(-7489, -4711, 5688),
+		["gore"] = Vector(-5301, -9071, 10656),
+		["goredocks"] = Vector(-7977, -8704, 10430),
+		["gorewatch"] = Vector(9158, 8292, 1076),
+		["hell"] = Vector(446, -8768, -4814),
+		["scrapfactory"] = Vector(-5197, 6138, 1637),
+		["scraptown"] = Vector(-8657, 12084, 336),
+		["sea_calm"] = Vector(2137, 4396, -7819),
+		["sea_rough"] = Vector(9253, 4624, -7809),
+		["sea_styx"] = Vector(-7792, 4785, -7948),
+		["voltist"] = Vector(-707, 2012, -96),
+		["villa"] = Vector(1870, -8695, 1000),
 	}
 else
 	Schema.MapLocations = {};
@@ -1329,7 +1353,7 @@ local COMMAND = Clockwork.command:New("EventLocal");
 COMMAND:Register();
 
 local zoneEventClasses = {
-	["gore"] = {"gore", "gore_tree", "gore_hallway", "supragore"},
+	["gore"] = {"gore", "gore_tree", "gore_hallway", "supragore", "hall"},
 	["wasteland"] = {"wasteland", "suprawasteland"},
 	["tower"] = {"tower"},
 	["hell"] = {"hell", "manor", "suprahell"},
@@ -1634,6 +1658,8 @@ local COMMAND = Clockwork.command:New("BlowWarhorn");
 		
 		if (!player.blowWarhornCooldown or curTime > player.blowWarhornCooldown) then
 			player.blowWarhornCooldown = curTime + 600;
+		if player:IsAdmin() then player.blowWarhornCooldown = curTime + 15;
+		end
 		
 			-- Prevent the bell sound and warhorn sound from playing over eachother.
 			if cwDayNight and cwDayNight.currentCycle == "day" then
@@ -1661,12 +1687,12 @@ local COMMAND = Clockwork.command:New("BlowWarhorn");
 						end
 					end
 				end
-			elseif lastZone == "gore" or lastZone == "gore_hallway" or lastZone == "gore_tree" then
+			elseif lastZone == "gore" or lastZone == "gore_hallway" or lastZone == "gore_tree" or lastZone == "hall" then
 				for _, v in _player.Iterator() do
 					if IsValid(v) and v:HasInitialized() then
 						local vLastZone = v:GetCharacterData("LastZone");
 						
-						if vLastZone == "gore" or vLastZone == "gore_hallway" or vLastZone == "gore_tree" then
+						if vLastZone == "gore" or vLastZone == "gore_hallway" or vLastZone == "gore_tree" or vLastZone == "hall" then
 							if v:GetFaction() == "Goreic Warrior" then
 								if cwStamina then
 									v:HandleStamina(25);
@@ -1734,7 +1760,7 @@ local COMMAND = Clockwork.command:New("GoreicHornSummonAll");
 					
 					for _, v in _player.Iterator() do
 						local lastZone = v:GetCharacterData("LastZone");
-						if (lastZone == "gore" or lastZone == "gore_tree" or lastZone == "gore_hallway") then
+						if (lastZone == "gore" or lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "hall") then
 							if v:GetFaction() == "Goreic Warrior" then
 								Clockwork.chatBox:Add(v, nil, "event", "A familiar call of "..subfaction.." echoes throughout the forest. All Goreic warriors have been summoned to the village center.");
 							else
@@ -1781,7 +1807,7 @@ local COMMAND = Clockwork.command:New("GoreicHornSummonRaid");
 				
 					for _, v in _player.Iterator() do
 						local lastZone = v:GetCharacterData("LastZone");
-						if (lastZone == "gore" or lastZone == "gore_tree" or lastZone == "gore_hallway") then
+						if (lastZone == "gore" or lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "hall") then
 							if v:GetFaction() == "Goreic Warrior" then
 								Clockwork.chatBox:Add(v, nil, "event", "A familiar call of "..subfaction.." echoes throughout the forest. A raiding party has been requested to organize at the village center.");
 							else
@@ -1831,9 +1857,13 @@ local COMMAND = Clockwork.command:New("CallCongregation");
 				end
 			end
 		end
-		
-		netstream.Start(close_players, "EmitSound", {name = "cosmicrupture/bellsclose.wav", pitch = 90, level = 60});
-		netstream.Start(far_players, "EmitSound", {name = "cosmicrupture/bellsdistant.wav", pitch = 100, level = 75});
+		if game.GetMap() == "bg_district34" then
+			netstream.Start(close_players, "EmitSound", {name = "district34/congregationclose.wav", pitch = 100, level = 60});
+			netstream.Start(far_players, "EmitSound", {name = "district34/congregationfar.wav", pitch = 100, level = 75});
+		else
+			netstream.Start(close_players, "EmitSound", {name = "cosmicrupture/bellsclose.wav", pitch = 90, level = 60});
+			netstream.Start(far_players, "EmitSound", {name = "cosmicrupture/bellsdistant.wav", pitch = 100, level = 75});
+		end
 	end;
 COMMAND:Register();
 
@@ -1883,7 +1913,7 @@ local COMMAND = Clockwork.command:New("Proclaim");
 		end;
 		
 		if hook.Run("PlayerCanSayIC", player, text) then 
-			if (Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) >= 3) or faction == "Holy Hierarchy" or player:IsAdmin() or Clockwork.player:HasFlags(player, "P") then
+			if (Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) >= 3) or faction == "Holy Hierarchy" or faction == "Aristocracy Of Light" or player:IsAdmin() or Clockwork.player:HasFlags(player, "P") then
 				Clockwork.chatBox:SetMultiplier(1.35);
 				
 				if player.victim and IsValid(player.victim) then
@@ -2196,7 +2226,7 @@ local COMMAND = Clockwork.command:New("ProclaimMe");
 		end;
 	
 		if hook.Run("PlayerCanSayIC", player, text) then 
-			if Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) >= 3 or faction == "Holy Hierarchy" or player:IsAdmin() or Clockwork.player:HasFlags(player, "P") then
+			if Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) >= 3 or faction == "Holy Hierarchy" or faction == "Aristocracy Of Light" or player:IsAdmin() or Clockwork.player:HasFlags(player, "P") then
 				Clockwork.chatBox:SetMultiplier(1.35);
 				
 				if player.victim and IsValid(player.victim) then
@@ -2408,7 +2438,6 @@ local COMMAND = Clockwork.command:New("RemoveItemsRadius");
 	COMMAND.access = "s";
 	COMMAND.alias = {"ClearItemsRadius", "RemoveItemsInRadius"};
 	COMMAND.arguments = 1;
-	COMMAND.types = {"Radius"}
 	
 	-- Called when the command has been run.
 	function COMMAND:OnRun(player, arguments)
@@ -2718,8 +2747,7 @@ local COMMAND = Clockwork.command:New("RemoveNPCSpawn")
 	COMMAND.tip = "Remove an npc spawn location at your cursor."
 	COMMAND.access = "s"
 	COMMAND.optionalArguments = 1;
-	COMMAND.text = "[int Radius]"
-	COMMAND.types = {"Radius"}
+	COMMAND.text = "[int Distance]"
 
 	-- Called when the command has been run.
 	function COMMAND:OnRun(player, arguments)
@@ -2966,7 +2994,7 @@ local COMMAND = Clockwork.command:New("CoinslotTax");
 	function COMMAND:OnRun(player, arguments)
 		local faction = player:GetFaction();
 		
-		if (faction == "Holy Hierarchy" and player:GetSubfaction() == "Minister") or player:IsAdmin() then
+		if (faction == "Holy Hierarchy" and player:GetSubfaction() == "Minister") or (faction == "Aristocracy Of Light" and player:GetSubfaction() == "Ministry") or player:IsAdmin() then
 			local trace = player:GetEyeTrace();
 
 			if (trace.Entity) then
@@ -3042,7 +3070,7 @@ local COMMAND = Clockwork.command:New("CoinslotDonate");
 						Schema:ModifyTowerTreasury(cash);
 						
 						if cwBeliefs then
-							if player:GetFaction() == "Gatekeeper" then
+							if player:GetFaction() == "Gatekeeper" or player:GetFaction() == "Militant Orders of the Villa" then
 								if player:HasBelief("hard_glazed") then
 									if cash >= 2 then
 										player:HandleXP(cash / 2);
@@ -3217,7 +3245,7 @@ local COMMAND = Clockwork.command:New("HellJaunt");
 				return false;
 			end
 		
-			if Schema.hellJauntDisabled or (map ~= "rp_begotten3" and map ~= "rp_begotten_redux" and map ~= "rp_district21") then
+			if Schema.hellJauntDisabled or (map ~= "rp_begotten3" and map ~= "rp_begotten_redux" and map ~= "rp_district21" and map ~= "bg_district34") then
 				Schema:EasyText(player, "peru", "Your connection with Hell appears to be severed and you cannot helljaunt!");
 				
 				return false;
@@ -3652,8 +3680,8 @@ local COMMAND = Clockwork.command:New("AddBounty");
 	function COMMAND:OnRun(player, arguments)
 		local faction = player:GetFaction();
 		
-		if faction == "Holy Hierarchy" or faction == "Gatekeeper" or player:IsAdmin() then
-			if not player:IsAdmin() and faction == "Gatekeeper" and Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) < 3 then
+		if faction == "Holy Hierarchy" or faction == "Gatekeeper" or faction == "Militant Orders of the Villa" or faction == "Aristocracy Of Light" or player:IsAdmin() then
+			if not player:IsAdmin() and (faction == "Gatekeeper" or faction == "Militant Orders of the Villa") and Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) < 3 then
 				Schema:EasyText(player, "darkgrey", "You are not important enough to do this!");
 			
 				return;
@@ -3711,8 +3739,8 @@ local COMMAND = Clockwork.command:New("RemoveBounty");
 	function COMMAND:OnRun(player, arguments)
 		local faction = player:GetFaction();
 		
-		if faction == "Holy Hierarchy" or faction == "Gatekeeper" or player:IsAdmin() then
-			if not player:IsAdmin() and faction == "Gatekeeper" and Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) < 3 then
+		if faction == "Holy Hierarchy" or faction == "Gatekeeper" or faction == "Militant Orders of the Villa" or faction == "Aristocracy Of Light" or player:IsAdmin() then
+			if not player:IsAdmin() and (faction == "Gatekeeper" or faction == "Militant Orders of the Villa") and Schema:GetRankTier(faction, player:GetCharacterData("rank", 1)) < 3 then
 				Schema:EasyText(player, "darkgrey", "You are not important enough to do this!");
 			
 				return;
@@ -4192,6 +4220,11 @@ local COMMAND = Clockwork.command:New("HellPortalGaze");
 			{
 				Vector(9687.704102, -7364.185547, -398.682037), -- box start
 				Vector(15093.301758, 1914.199951, 1704.999023) -- box end
+			},
+			["bg_district34"] =
+			{
+				Vector(-2237, 8290, 626), -- box start
+				Vector(1789, 4698, 1443) -- box end
 			}
 		},
 		["Church"] = 
@@ -4201,7 +4234,15 @@ local COMMAND = Clockwork.command:New("HellPortalGaze");
 				Vector(8241.556641, -11463.334961, -704.866455), -- box start
 				Vector(1634.260498, -15241.533203, 1665.453247) -- box end
 			}
-		}
+		},
+		["Cave"] = 
+		{
+		["bg_district34"] =
+			{
+				Vector(-8077, 2127, -25),
+				Vector(-11469, 3781, 395)
+			}
+		},
 	}
 
 	function COMMAND:OnRun(player, arguments)

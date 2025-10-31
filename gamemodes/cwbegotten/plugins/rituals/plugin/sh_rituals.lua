@@ -1994,7 +1994,7 @@ RITUAL = cwRituals.rituals:New("summon_champion");
 			end
 		end
 
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end
@@ -2016,7 +2016,7 @@ RITUAL = cwRituals.rituals:New("summon_champion");
 	function RITUAL:EndRitual(player)
 		local lastZone = player:GetCharacterData("LastZone");
 		
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end
@@ -2115,7 +2115,7 @@ RITUAL = cwRituals.rituals:New("summon_soldier");
 			end
 		end
 
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end
@@ -2137,7 +2137,7 @@ RITUAL = cwRituals.rituals:New("summon_soldier");
 	function RITUAL:EndRitual(player)
 		local lastZone = player:GetCharacterData("LastZone");
 		
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end
@@ -2269,7 +2269,7 @@ RITUAL = cwRituals.rituals:New("summon_otis");
 			end
 		end
 
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end
@@ -2291,7 +2291,7 @@ RITUAL = cwRituals.rituals:New("summon_otis");
 	function RITUAL:EndRitual(player)
 		local lastZone = player:GetCharacterData("LastZone");
 		
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end
@@ -2384,7 +2384,7 @@ RITUAL = cwRituals.rituals:New("summon_sprinter");
 		
 		local lastZone = player:GetCharacterData("LastZone");
 		
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end
@@ -2414,7 +2414,7 @@ RITUAL = cwRituals.rituals:New("summon_sprinter");
 		local lastZone = player:GetCharacterData("LastZone");
 
 
-		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" then
+		if lastZone == "gore_tree" or lastZone == "gore_hallway" or lastZone == "gore" or lastZone == "sea_rough" or lastZone == "sea_calm" or lastZone == "sea_styx" or lastZone == "gore_soil" or lastZone == "hall" then
 			Schema:EasyText(player, "firebrick", "There is some sort of supernatural force preventing you from doing this here!");
 			return false;
 		end

@@ -1,6 +1,6 @@
 -- Dynamic Music by Cash Wednesday and DETrooper
 
-local map = game.GetMap() == "rp_begotten3" or game.GetMap() == "rp_begotten_redux" or game.GetMap() == "rp_scraptown" or game.GetMap() == "rp_district21";
+local map = game.GetMap() == "rp_begotten3" or game.GetMap() == "rp_begotten_redux" or game.GetMap() == "rp_scraptown" or game.GetMap() == "rp_district21" or game.GetMap() == "bg_district34";
 
 Clockwork.ConVars.AMBIENTMUSIC = Clockwork.kernel:CreateClientConVar("cwAmbientMusic", 1, true, true)
 Clockwork.ConVars.AMBIENTMUSICVOLUME = Clockwork.kernel:CreateClientConVar("cwAmbientMusicVolume", 100, true, true)
@@ -226,8 +226,8 @@ function cwMusic:PlayerChangedZones(newZone, previousZone)
 	if newZone == previousZone then return end;
 
 	if self.AmbientMusic and self.AmbientMusic:IsPlaying() then
-		if newZone == "gore_tree" or newZone == "gore" or newZone == "gore_hallway" then
-			if previousZone != "gore_tree" and previousZone != "gore" and previousZone != "gore_hallway" then
+		if newZone == "gore_tree" or newZone == "gore" or newZone == "gore_hallway" or newZone == "hall" then
+			if previousZone != "gore_tree" and previousZone != "gore" and previousZone != "gore_hallway" and previousZone != "hall" then
 				self:FadeOutAmbientMusic(4, 1);
 			end
 		elseif game.GetMap() == "rp_scraptown" then
@@ -383,7 +383,7 @@ function cwMusic:GetAmbientMusicCategory()
 			trackType = "District 21 Nighttime Ambience";
 		elseif zone == "tower"  then
 			trackType = "Hill of Light Ambience";
-		elseif zone == "gore" or zone == "gore_hallway" or zone == "gore_tree" then
+		elseif zone == "gore" or zone == "gore_hallway" or zone == "gore_tree" or zone == "hall" then
 			trackType = "Gore Forest Ambience";
 		end
 	else
@@ -391,7 +391,7 @@ function cwMusic:GetAmbientMusicCategory()
 			trackType = "Wasteland Nighttime Ambience";
 		elseif zone == "tower" and game.GetMap() ~= "rp_scraptown" then
 			trackType = "Tower of Light Ambience";
-		elseif zone == "gore" or zone == "gore_hallway" or zone == "gore_tree" then
+		elseif zone == "gore" or zone == "gore_hallway" or zone == "gore_tree" or zone == "hall" then
 			trackType = "Gore Forest Ambience";
 		end
 	end
@@ -618,7 +618,7 @@ function cwMusic:GetBattleMusicCategory()
 		trackType = "District 21 Combat"
 	end
 	
-	if zone == "gore" or zone == "gore_hallway" or zone == "gore_tree" then
+	if zone == "gore" or zone == "gore_hallway" or zone == "gore_tree" or zone == "hall" then
 		trackType = "Gore Forest Combat";
 	end
 	
