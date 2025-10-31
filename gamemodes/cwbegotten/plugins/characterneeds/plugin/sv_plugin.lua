@@ -59,6 +59,7 @@ elseif (game.GetMap() == "bg_district34") then
 		["satanists"] = {pos1 = Vector(1116, -7876, -2982), pos2 = Vector(1596, -8036, -3087)}, -- Office bedroom
 		["satanists2"] = {pos1 = Vector(1560, -8358, -3488), pos2 = Vector(1229, -8504, -3312)}, -- Forge break room
 		["castle"] = {pos1 = Vector(-8344, 15072, 274), pos2 = Vector(-8634, 14881, 415)}, -- Scraptown
+		["levy"] = {pos1 = Vector(4542, -10747, 1024), pos2 = Vector(4330, -10617, 1148)}, -- Watchtower Barracks
 	}
 else
 	cwCharacterNeeds.bedZones = {};
