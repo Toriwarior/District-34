@@ -481,7 +481,7 @@ function COMMAND:OnRun(player, arguments)
 						Schema:EasyText(player, "olivedrab", "You climb into a bed and get some rest.");
 						return;
 					end
-				end
+		end
 		
 		player.sleepData = {health = 10, hunger = 15, thirst = 30, rest = -30};
 		--player:HandleNeed("hunger", 15);
